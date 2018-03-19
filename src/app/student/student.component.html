@@ -1,0 +1,118 @@
+<div class="container">
+
+
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item" [class.active]="viewMode == 'register'">
+      <a class="nav-link" (click)="viewMode='register'">Registration</a>
+    </li>
+    <li class="nav-item" [class.active]="viewMode == 'details'">
+      <a class="nav-link" (click)="viewMode='details'">View Details</a>
+    </li>
+  </ul>
+
+
+  <div [ngSwitch]="viewMode">
+    <div *ngSwitchDefault>
+      <br/>
+      <h3>Student Registration</h3>
+      <br/>
+      <form name="studentForm" ngForm #studentForm="ngForm">
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input name="fullName" required minlength="3" pattern="^([A-Za-z]+[,.]?[ ]?|[A-Za-z]+['-]?)+$" ngModel #fullName="ngModel"
+                type="text" class="form-control" id="fullName" placeholder="Enter your fullname">
+              <div class="alert alert-danger" *ngIf="fullName.touched && fullName.invalid">
+                <div *ngIf="fullName.errors.required">fullName cannot be empty.</div>
+                <div *ngIf="fullName.errors.minlength">
+                  fullName min length should be {{fullName.errors.minlength.requiredLength}}.
+                </div>
+                <div *ngIf="fullName.errors.pattern">fullName should match with pattern.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input required ngModel name="address" #address="ngModel" type="text" class="form-control" id="address" placeholder="Enter your address">
+              <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+                <div *ngIf="address.errors.required">Address should not be empty.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="gender">Select Gender</label>
+              <select ngModel name="gender" #gender="ngModel" class="form-control" id="gender" placeholder="Select gender">
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="contact">Contact No</label>
+              <input required minlength="10" size=10 ngModel name="contact" #contact="ngModel" type="number" class="form-control" id="contact"
+                placeholder="Enter your contact no">
+              <div class="alert alert-danger" *ngIf="contact.touched && contact.invalid">
+                <div *ngIf="contact.errors.required">Contact should not be empty.</div>
+                <div *ngIf="contact.errors.minlength">Number should be 10 digit.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input ngModel #dob="ngModel" name="dob" type="date" class="form-control" id="dob" placeholder="Select your DOB">
+
+            </div>
+          </div>
+          <div class="col">
+
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input ngModel #email="ngModel" name="email" type="email" class="form-control" id="email" placeholder="Enter your Email">
+
+            </div>
+          </div>
+          <div class="col">
+
+          </div>
+
+        </div>
+
+        <button (click)="addStudent(studentForm)" type="submit" class="btn btn-success">Add</button>
+        <button type="reset" class="btn btn-secondary">Clear</button>
+        <button type="button" class="btn btn-secondary" (click)="getAllStudents()">Check</button>
+
+      </form>
+
+
+    </div>
+    <div *ngSwitchCase="'details'">
+
+      table contents shoud be shown.
+
+    </div>
+    <div *ngSwitchCase>Select the tab</div>
+  </div>
+
+
+
+</div>
